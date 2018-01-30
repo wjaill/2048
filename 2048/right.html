@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	
+	<style>
+		html,body{
+			height: 100%;
+		}
+		body{
+			background: #fc6a6a;
+			display: flex;flex-direction: column;
+			align-items: center;
+		}
+		img{
+			width: 50%;
+			height: auto;
+			border-radius: 15px;
+			margin-top: 60px;
+		}
+		.mui-btn{
+			width: 50%;
+			margin-top: 30px;
+		}
+	</style>
+	
+	<body>
+		
+		<img src="images/logo.jpg"/>
+		<button id="sort" class="girl mui-btn mui-btn-primary">排行榜</button>
+		<button id="about" class="girl mui-btn mui-btn-primary">关于</button>
+		<button id="clear" class="girl mui-btn mui-btn-primary">清楚记录</button>
+		<button id="back" class="girl mui-btn mui-btn-primary">返回游戏</button>
+		
+		<script src="js/mui.min.js"></script>
+		<script src="js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			let sort,about;
+			mui.plusReady(function(){
+				sort = plus.webview.create('sort.html','sort.html',{width:'50%'})
+				about  = plus.webview.create('about.html','about.html',{width:'50%'})
+			})
+			
+			$("#sort").on('tap',function(){
+				sort.show('slide-in-left')
+				about.hide('slide-out-left')
+			})
+			$("#about").on('tap',function(){
+				about.show('slide-in-left')
+				sort.hide('slide-out-left')
+			})
+			$("#back").on('tap',function(){
+				about.hide('slide-out-left')
+				sort.hide('slide-out-left')
+				
+				let main = plus.webview.getWebviewById('game.html')
+				mui.fire(main,'close:menu',1)
+			})
+			$("#clear").on('tap',function(){
+				localStorage.removeItem('scores')
+				
+				mui.fire(sort,'rerender')
+			})
+			
+			
+		</script>
+	</body>
+
+</html>

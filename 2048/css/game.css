@@ -1,0 +1,115 @@
+html,body{
+		height: 100%;
+	}
+	body{
+		background: #fc6a6a;
+	}
+	.mui-bar-nav {
+	    -webkit-box-shadow: none;
+	    box-shadow: none;
+	}
+	.mui-bar {
+
+	    background-color: transparent;
+	    -webkit-box-shadow:none;
+	    box-shadow: none;
+	}
+	.mui-content{
+		display: flex;justify-content: center;align-items: center;
+		height: 100%;
+		background: transparent;
+	}
+
+	.game-content {
+		width: 80vw;height: 80vw;
+		background: #bcaea1;border-radius: 10px;
+		position: relative;
+	}
+	.score-box{
+		margin-top: 15px;
+		display: flex;justify-content: space-between;
+	}
+	.score-box .mui-btn{
+		font-size: 0.3em;
+	}
+	.game-box .item{
+		width: 17.5vw;
+		height: 17.5vw;
+		border-radius: 10px;
+	}
+	.game-box .item[class ^= 'item br']{
+		float: left;
+		background: #ccc0b2;
+		margin-left: 2vw;
+		margin-top: 2vw;
+	}
+	.game-box .item[class ^= 'item gr']{
+		position: absolute;
+		display: flex;justify-content: center;align-items: center;
+		color: #fff;
+		  -webkit-animation-duration: 0.5s;
+		  animation-duration: 0.5s;
+		  -webkit-animation-fill-mode: both;
+		  animation-fill-mode: both;
+	}
+	.game-box .item[class ^= 'item gr1']{
+		top: 2vw;
+	}
+	.game-box .item[class ^= 'item gr2']{
+		top: 21.5vw;
+	}
+	.game-box .item[class ^= 'item gr3']{
+		top: 41vw;
+	}
+	.game-box .item[class ^= 'item gr4']{
+		bottom: 2vw;
+	}
+	.game-box .item[class $= 'c1']{
+		left: 2vw;
+	}
+	.game-box .item[class $= 'c2']{
+		left: 21.5vw;
+	}
+	.game-box .item[class $= 'c3']{
+		left: 41vw;
+	}
+	.game-box .item[class $= 'c4']{
+		right: 2vw;
+	}
+	.game-box .item[data-num='0']{
+		background: none;
+	}
+	.game-box .item[data-num='2']{
+		background: #EEE4DA;
+		color: #333;
+	}
+	.game-box .item[data-num='4']{
+		background: #F3B079;
+	}
+	.game-box .item[data-num='8']{
+		background: #EEE0C6;
+	}
+	.game-box .item[data-num='16']{
+		background: #A49A90;
+	}
+	.game-box .item[data-num='32']{
+		background: #EC8D55;
+	}
+	.game-box .item[data-num='64']{
+		background: #e2cd8e;
+	}
+	.game-box .item[data-num='128']{
+		background: rgb(242, 116, 75);
+	}
+	.game-box .item[data-num='256']{
+		background: rgb(44, 247, 159);
+	}
+	.game-box .item[data-num='512']{
+		background: rgb(89, 209, 242);
+	}
+	.game-box .item[data-num='1024']{
+		background: rgb(244, 238, 53);
+	}
+	.game-box .item[data-num='2048']{
+		background: rgb(252, 222, 0);
+	}

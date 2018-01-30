@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>  
+    <link href="css/mui.min.css" rel="stylesheet"/>
+ 	<link rel="stylesheet" type="text/css" href="css/animate.css"/>
+ 	<link rel="stylesheet" type="text/css" href="css/game.css"/>
+</head>
+
+<body>
+	<!--采女—常在—贵人—嫔—容华—婕妤—贵嫔—昭仪—妃—贵妃—皇后-->
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <a class="menu mui-icon mui-icon-bars mui-pull-right"></a>
+	    
+	</header>
+	
+	<div class="mui-content">
+		
+		<div class="game-box">
+			
+			<div class="game-content girl">
+				
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				<div class="item br" ></div>
+				
+				<div class="item gr1c1" ></div>
+				<div class="item gr1c2"  ></div>
+				<div class="item gr1c3" ></div>
+				<div class="item gr1c4" ></div>
+				<div class="item gr2c1"  ></div>
+				<div class="item gr2c2" ></div>
+				<div class="item gr2c3" ></div>
+				<div class="item gr2c4"  ></div>
+				<div class="item gr3c1"  ></div>
+				<div class="item gr3c2" ></div>
+				<div class="item gr3c3"></div>
+				<div class="item gr3c4"  ></div>
+				<div class="item gr4c1" ></div>
+				<div class="item gr4c2" ></div>
+				<div class="item gr4c3" ></div>
+				<div class="item gr4c4" ></div>
+				
+			</div>
+			
+			<div class="score-box bus">
+				<button class="mui-btn mui-btn-primary">now: <span id="now">0</span></button>
+				<button class="mui-btn mui-btn-primary">best: <span id="best">0</span></button>
+			</div>
+			
+		</div>
+		
+	</div>
+	<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+			mui.init()
+			// ？？？？
+			var menu = null,//右侧的窗口
+				main = null;//当前的窗口
+			
+			var showMenu = false;//开关，判断右侧窗口是否打开
+			
+			mui.plusReady(function(){
+				
+				//强制竖屏
+				plus.screen.lockOrientation('portrait-primary')
+				//当前窗口
+				main = plus.webview.currentWebview();
+				
+				//当点击遮罩的时候，关闭菜单
+				main.addEventListener("maskClick",closeMenu)
+				
+			
+				
+				setTimeout(function(){
+					//预加载右侧窗口
+					menu = mui.preload({
+					    url:'right.html',
+					    id:'right.html',
+					    styles:{
+					    	right:"0%",
+					    	width:"50%"
+					    },
+					    show:{
+					    	aniShow:'none'
+					    }
+					});
+				},200)
+							
+			})
+			
+			//是否在过渡中
+			var isInTransition = false;
+			
+			//打开右侧窗口
+			function openMenu(){
+				//如果现在窗口们正在处于一个滑动的状态，就啥也别干了
+				if(isInTransition){
+					return ;
+				}
+				
+				if(!showMenu){//如果窗口没有打开					
+					isInTransition = true	
+					
+					//为右侧菜单设置遮罩样式
+					menu.setStyle({
+						mask:'rgba(0,0,0,0)'
+					})
+					
+					//给游戏窗口也设置遮罩
+					main.setStyle({
+						mask:'rgba(0,0,0,0)',
+						right:"50%",
+						transition:{
+							duration:150
+						}
+					})
+					//显示右侧创建
+					menu.show("slide-in-right",150,function(){
+						//和setTimeout一模一样
+						mui.later(function(){
+							//过渡完成，窗口已经完全进入了
+							isInTransition = false
+							menu.setStyle({
+								mask:'none'
+							})
+						},160)
+						
+						showMenu = true
+					})
+				}
+				
+			}
+			//关闭窗口
+			function closeMenu(){
+				if(isInTransition){
+					return ;
+				}
+				
+				if(showMenu){
+					
+					isInTransition=true;
+					
+					main.setStyle({
+						mask:'none',
+						right:"0%",
+						transition:{duration:150}
+					})
+					menu.hide("slide-out-right",150)
+					
+					mui.later(function(){
+						showMenu=false;
+						isInTransition=false
+					},160)
+					
+				}
+			}
+			
+			
+			document.querySelector(".menu").addEventListener('tap',function(){					
+				openMenu()
+			})
+			
+			//为game窗口绑定一个小小的事件，事件会被另一个窗口触发，触发的时候执行关闭窗口的动作
+			window.addEventListener('close:menu',function(e){
+				closeMenu()
+			})
+		
+	</script>
+	<script src="js/game.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var game = new Game()
+		game.init()
+		
+		window.addEventListener("swipedown",function(){
+			if(!game.canPlay){return ;}
+			game.swipeDown()
+		})
+		
+		window.addEventListener("swipeup",function(){
+			if(!game.canPlay){return ;}
+			game.swipeUp()
+		})
+		window.addEventListener("swiperight",function(){
+			if(!game.canPlay){return ;}
+			game.swipeRight()
+		})
+		window.addEventListener("swipeleft",function(){
+			if(!game.canPlay){return ;}
+			game.swipeLeft()
+		})
+		
+		
+
+	</script>
+</body>
+</html>
